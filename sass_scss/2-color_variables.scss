@@ -1,0 +1,14 @@
+$myTextColor: #3D3D3D;
+$myBackgroundColor: #6D6D6D;
+
+body, p {
+  color: $myTextColor;
+}
+
+body, h2 {
+  background-color: $myBackgroundColor;
+}
+
+h2 {
+  background-color: $myBackgroundColor;
+}
