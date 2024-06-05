@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 0</title>
+
+    <!-- Load the latest version of jQuery (Slim & minified) from the CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+
+    <style>
+        /* Add CSS for the remove cell */
+        .remove-cell {
+            background-color: orange;
+            cursor: pointer;
+        }
+    </style>
+
+    <script type="application/javascript">
+        // Check if jQuery is loaded correctly
+        if (typeof jQuery !== 'undefined') {
+            // jQuery is loaded, log to the console
+            console.log('jQuery has been loaded correctly');
+        } else {
+            // jQuery is not loaded properly, log to the console
+            console.log('jQuery has not been loaded correctly');
+        }
+
+        // Use $(document).ready() to ensure the code runs after the document is fully loaded
+        $(document).ready(function () {
+            // Define the createFamilyTree function
+            function createFamilyTree() {
+                // Append an empty table to the body
+                $('body').append(
+                    $('<table border="1">').append(
+                        $('<thead>').append(
+                            $('<tr>').append(
+                                $('<th>').text('Firstname'),
+                                $('<th>').text('Lastname')
+                            )
+                        ),
+                        $('<tbody>')
+                    )
+                );
+            }
+
+            // Define the addNewMember function with a new position argument
+            function addNewMember(firstName, lastName, position) {
+                // Append a new row with three cells to the table body based on the position
+                if (position === 'before') {
+                    $('tbody').prepend(
+                        $('<tr>').append(
+                            $('<td>').text(firstName),
+                            $('<td>').text(lastName),
+                            $('<td>').addClass('remove-cell').text('(x)').click(function () {
+                                // Remove the row on click
+                                $(this).closest('tr').remove();
+                            })
+                        )
+                    );
+                } else {
+                    $('tbody').append(
+                        $('<tr>').append(
+                            $('<td>').text(firstName),
+                            $('<td>').text(lastName),
+                            $('<td>').addClass('remove-cell').text('(x)').click(function () {
+                                // Remove the row on click
+                                $(this).closest('tr').remove();
+                            })
+                        )
+                    );
+                }
+            }
+
+            // Define the createForm function
+            function createForm() {
+                // Add two text inputs before the table
+                $('table').before(
+                    $('<input type="text" placeholder="First Name">'),
+                    $('<input type="text" placeholder="Last Name">'),
+                    // Add a select element with two options
+                    $('<select>').append(
+                        $('<option value="before">').text('Before'),
+                        $('<option value="after">').text('After')
+                    ),
+                    // Add an input of type submit
+                    $('<input type="submit" value="Add Member">').click(function (event) {
+                        // Prevent the default form submission
+                        event.preventDefault();
+
+                        // Get values from the form elements
+                        var firstName = $('input[type="text"]:first').val();
+                        var lastName = $('input[type="text"]:nth-of-type(2)').val();
+                        var position = $('select').val();
+
+                        // Call addNewMember function with the form values
+                        addNewMember(firstName, lastName, position);
+                    })
+                );
+            }
+
+            // Call the createFamilyTree function
+            createFamilyTree();
+
+            // Call the createForm function
+            createForm();
+        });
+    </script>
+</head>
+
+<body>
+    <h1>hello world</h1>
+</body>
+
+</html>
